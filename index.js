@@ -15,12 +15,28 @@ var insertions   = 0;
 var deletion     = 0;
 var countCommits = 0;
 
+var argsToInject = process.argv.slice(2);
+
 var args = [
   'log',
   '--format=%n',
   '--shortstat',
   '--after='+new Date( today )
 ];
+
+argsToInject = argsToInject.filter(function(value){
+
+  if(value.match(/--format|--pretty/)){
+    console.log( colors.red('WARNING:'), 'Can\'t change log format' );
+    return false;
+  }
+
+  return true;
+
+});
+
+args = args.concat(argsToInject);
+
 
 function log(msg){
 
