@@ -8,8 +8,6 @@ var trim    = require('trim');
 var colors  = require('colors/safe');
 var Parser  = require('./parser');
 
-var now          = new Date();
-var today        = (now.getMonth() + 1) +'-'+ now.getDate() +'-'+ now.getFullYear();
 var filesChanged = 0;
 var insertions   = 0;
 var deletion     = 0;
@@ -20,8 +18,7 @@ var argsToInject = process.argv.slice(2);
 var args = [
   'log',
   '--format=%n',
-  '--shortstat',
-  '--after='+new Date( today )
+  '--shortstat'
 ];
 
 argsToInject = argsToInject.filter(function(value){
