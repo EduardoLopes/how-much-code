@@ -11,7 +11,8 @@ var Parser  = require('./parser');
 var filesChanged = 0;
 var insertions   = 0;
 var deletion     = 0;
-var countCommits = 0;
+//for some reason the stream is getting one line without a commit
+var countCommits = -1;
 
 var argsToInject = process.argv.slice(2);
 
@@ -60,8 +61,10 @@ spawn('git', args).stdout
     filesChanged += data.filesChanged;
     insertions += data.insertions;
     deletion += data.deletion;
-    countCommits++;
   }
+
+  //some commits doesn't have files changed, insertions or deletations
+  countCommits++;
 
 })
 .on('end', function() {
