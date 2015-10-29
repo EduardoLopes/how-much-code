@@ -28,6 +28,16 @@ function log(msg){
 
 }
 
+function pluralSingulaFilter(singularMessage, pluralMessage, number){
+    var message = pluralMessage;
+
+  if(number <= 1){
+    message = singularMessage;
+  }
+
+  return number +' '+message;
+}
+
 spawn('git', args).stdout
 .pipe(split())
 .on('data', function (line) {
@@ -44,10 +54,10 @@ spawn('git', args).stdout
 .on('end', function() {
 
   console.log(colors.cyan('----------------------------'));
-  log(countCommits + ' Commits');
-  log(filesChanged + ' Files changed');
-  log(insertions + ' Insertions'+colors.green('(+)'));
-  log(deletion + ' Deletions'+colors.red('(-)'));
+  log( pluralSingulaFilter('Commit', 'Commits', countCommits) );
+  log( pluralSingulaFilter('File changed', 'Files changed', filesChanged) );
+  log( pluralSingulaFilter('Insertion', 'Insertions', insertions) + colors.green('(+)') );
+  log( pluralSingulaFilter('Deletion', 'Deletions', deletion) + colors.red('(-)') );
   console.log(colors.cyan('----------------------------'));
 
 });
