@@ -4,7 +4,7 @@
   "description": "A module that count how much code have you committed in a git repository in a day",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -28,5 +28,8 @@
   "preferGlobal": "true",
   "bin": {
     "how-much-code": "index.js"
+  },
+  "devDependencies": {
+    "mocha": "^2.3.3"
   }
 }
