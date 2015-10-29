@@ -17,7 +17,7 @@ var argsToInject = process.argv.slice(2);
 
 var args = [
   'log',
-  '--format=%n',
+  '--format=%n==_END_COMMIT_MESSAGE_HOW_MUCH_CODE_MODULE_',
   '--shortstat'
 ];
 
@@ -52,7 +52,7 @@ function pluralSingulaFilter(singularMessage, pluralMessage, number){
 }
 
 spawn('git', args).stdout
-.pipe(split())
+.pipe(split('==_END_COMMIT_MESSAGE_HOW_MUCH_CODE_MODULE_'))
 .on('data', function (line) {
 
   if(line.toString().length > 0){
