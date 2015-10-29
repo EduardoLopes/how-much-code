@@ -55,7 +55,7 @@ spawn('git', args).stdout
 .pipe(split('==_END_COMMIT_MESSAGE_HOW_MUCH_CODE_MODULE_'))
 .on('data', function (line) {
 
-  if(line.toString().length > 0){
+  if(line.toString().match(/(?:(\d*)\s(?:file|files)\schanged|(\d*)\s(?:insertion|insertions)\(\+\)|(\d*)\s(?:deletion|deletions)\(\-\))/)){
     var data = new Parser( trim( line.toString() ) );
     filesChanged += data.filesChanged;
     insertions += data.insertions;
