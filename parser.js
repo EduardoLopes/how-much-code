@@ -14,7 +14,7 @@ Parser.prototype.getFilesChanged = function(first_argument) {
 
   var filesChanged = 0;
 
-  var match = this.raw.match(/(\d*)\sfile|files\s\(\+\)/);
+  var match = this.raw.match(/(\d*)\s(?:file|files)\schanged/);
 
   if(isArray(match)){
     filesChanged = parseInt(match[1]);
@@ -28,7 +28,7 @@ Parser.prototype.getInsertions = function(first_argument) {
 
   var insertions = 0;
 
-  var match = this.raw.match(/(\d*)\sinsertion|insertions\(\+\)/);
+  var match = this.raw.match(/(\d*)\s(?:insertion|insertions)\(\+\)/);
 
   if(isArray(match)){
     insertions = parseInt(match[1]);
@@ -42,7 +42,7 @@ Parser.prototype.getDeletions = function(first_argument) {
 
   var deletions = 0;
 
-  var match = this.raw.match(/(\d*)\sdeletion|deletions\(\+\)/);
+  var match = this.raw.match(/(\d*)\s(?:deletion|deletions)\(\-\)/);
 
   if(isArray(match)){
     deletions = parseInt(match[1]);
