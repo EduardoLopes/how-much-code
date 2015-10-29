@@ -1,6 +1,6 @@
 {
   "name": "how-much-code",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A module that count how much code have you committed in a git repository in a day",
   "main": "index.js",
   "scripts": {
@@ -22,7 +22,6 @@
   "homepage": "https://github.com/EduardoLopes/how-much-code",
   "dependencies": {
     "colors": "^1.1.2",
-    "command-line-args": "^2.0.4",
     "is-array": "^1.0.1",
     "split": "^1.0.0",
     "trim": "0.0.1"
