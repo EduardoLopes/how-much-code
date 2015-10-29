@@ -1,6 +1,6 @@
 {
   "name": "how-much-code",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A module that count how much code have you committed in a git repository in a day",
   "main": "index.js",
   "scripts": {
@@ -23,7 +23,8 @@
   "dependencies": {
     "colors": "^1.1.2",
     "is-array": "^1.0.1",
-    "split": "^1.0.0"
+    "split": "^1.0.0",
+    "trim": "0.0.1"
   },
   "preferGlobal": "true",
   "bin": {
