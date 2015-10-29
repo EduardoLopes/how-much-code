@@ -1,6 +1,6 @@
 {
   "name": "how-much-code",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A module that count how much code have you committed in a git repository in a day",
   "main": "index.js",
   "scripts": {
