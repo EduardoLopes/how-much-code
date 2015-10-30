@@ -6,6 +6,7 @@ var spawn   = require('child_process').spawn;
 var split   = require('split');
 var trim    = require('trim');
 var colors  = require('colors/safe');
+var readline = require('readline');
 var Parser  = require('./parser');
 
 var filesChanged = 0;
@@ -66,10 +67,16 @@ spawn('git', args).stdout
   //some commits doesn't have files changed, insertions or deletations
   countCommits++;
 
+  readline.clearLine(process.stdout, 0);
+  readline.cursorTo(process.stdout, 0);
+  process.stdout.write(pluralSingulaFilter('Commit', 'Commits', countCommits));
+
 })
 .on('end', function() {
 
-  console.log(colors.cyan('----------------------------'));
+  readline.clearLine(process.stdout, 0);
+
+  console.log('\n'+colors.cyan('----------------------------'));
   log( pluralSingulaFilter('Commit', 'Commits', countCommits) );
   log( pluralSingulaFilter('File changed', 'Files changed', filesChanged) );
   log( pluralSingulaFilter('Insertion', 'Insertions', insertions) + colors.green('(+)') );
