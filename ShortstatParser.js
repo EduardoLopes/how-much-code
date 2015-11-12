@@ -1,6 +1,6 @@
 const isArray = require('is-array');
 
-function Parser(data){
+function ShortstatParser(data){
 
   this.raw = data;
 
@@ -10,7 +10,7 @@ function Parser(data){
 
 }
 
-Parser.prototype.getFilesChanged = function(first_argument) {
+ShortstatParser.prototype.getFilesChanged = function(first_argument) {
 
   var filesChanged = 0;
 
@@ -24,7 +24,7 @@ Parser.prototype.getFilesChanged = function(first_argument) {
 
 };
 
-Parser.prototype.getInsertions = function(first_argument) {
+ShortstatParser.prototype.getInsertions = function(first_argument) {
 
   var insertions = 0;
 
@@ -38,7 +38,7 @@ Parser.prototype.getInsertions = function(first_argument) {
 
 };
 
-Parser.prototype.getDeletions = function(first_argument) {
+ShortstatParser.prototype.getDeletions = function(first_argument) {
 
   var deletions = 0;
 
@@ -52,4 +52,4 @@ Parser.prototype.getDeletions = function(first_argument) {
 
 };
 
-module.exports = Parser;
+module.exports = ShortstatParser;

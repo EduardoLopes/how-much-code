@@ -7,7 +7,7 @@ var split   = require('split');
 var trim    = require('trim');
 var colors  = require('colors/safe');
 var readline = require('readline');
-var Parser  = require('./parser');
+var ShortstatParser  = require('./ShortstatParser');
 
 var filesChanged = 0;
 var insertions   = 0;
@@ -58,7 +58,7 @@ spawn('git', args).stdout
 .on('data', function (line) {
 
   if(line.toString().match(/(?:(\d*)\s(?:file|files)\schanged|(\d*)\s(?:insertion|insertions)\(\+\)|(\d*)\s(?:deletion|deletions)\(\-\))/)){
-    var data = new Parser( trim( line.toString() ) );
+    var data = new ShortstatParser( trim( line.toString() ) );
     filesChanged += data.filesChanged;
     insertions += data.insertions;
     deletion += data.deletion;
