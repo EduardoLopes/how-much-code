@@ -45,7 +45,7 @@ function log(msg){
 }
 
 function pluralSingulaFilter(singularMessage, pluralMessage, number){
-    var message = pluralMessage;
+  var message = pluralMessage;
 
   if(number <= 1){
     message = singularMessage;
