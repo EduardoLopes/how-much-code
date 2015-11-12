@@ -1,26 +1,27 @@
 #!/usr/bin/env node
 
 'use strict';
-
 var spawn   = require('child_process').spawn;
 var split   = require('split');
 var trim    = require('trim');
 var colors  = require('colors/safe');
 var readline = require('readline');
-var ShortstatParser  = require('./ShortstatParser');
+var isArray = require('is-array');
+var NumstatParser  = require('./NumstatParser');
 
 var filesChanged = 0;
 var insertions   = 0;
-var deletion     = 0;
+var deletions    = 0;
 //for some reason the stream is getting one line without a commit
 var countCommits = -1;
+
 
 var argsToInject = process.argv.slice(2);
 
 var args = [
   'log',
   '--format=%n==_END_COMMIT_MESSAGE_HOW_MUCH_CODE_MODULE_',
-  '--shortstat'
+  '--numstat'
 ];
 
 argsToInject = argsToInject.filter(function(value){
@@ -57,11 +58,19 @@ spawn('git', args).stdout
 .pipe(split('==_END_COMMIT_MESSAGE_HOW_MUCH_CODE_MODULE_'))
 .on('data', function (line) {
 
-  if(line.toString().match(/(?:(\d*)\s(?:file|files)\schanged|(\d*)\s(?:insertion|insertions)\(\+\)|(\d*)\s(?:deletion|deletions)\(\-\))/)){
-    var data = new ShortstatParser( trim( line.toString() ) );
-    filesChanged += data.filesChanged;
-    insertions += data.insertions;
-    deletion += data.deletion;
+  if(line.length <= 1) return;
+
+  var parser = line.toString().match(/((?:\d+|\-))\t((?:\d+|\-))\t(.+)/g);
+
+  if(isArray(parser)){
+    var data = new NumstatParser(parser);;
+
+    for (var i = 0; i < data.files.length; i++) {
+      filesChanged += 1;
+      insertions += data.files[i].insertions;
+      deletions += data.files[i].deletions;
+    };
+
   }
 
   //some commits doesn't have files changed, insertions or deletations
@@ -80,7 +89,7 @@ spawn('git', args).stdout
   log( pluralSingulaFilter('Commit', 'Commits', countCommits) );
   log( pluralSingulaFilter('File changed', 'Files changed', filesChanged) );
   log( pluralSingulaFilter('Insertion', 'Insertions', insertions) + colors.green('(+)') );
-  log( pluralSingulaFilter('Deletion', 'Deletions', deletion) + colors.red('(-)') );
+  log( pluralSingulaFilter('Deletion', 'Deletions', deletions) + colors.red('(-)') );
   console.log(colors.cyan('----------------------------'));
 
 });

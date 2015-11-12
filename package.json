@@ -23,6 +23,7 @@
   "dependencies": {
     "colors": "^1.1.2",
     "is-array": "^1.0.1",
+    "is-number": "^2.0.2",
     "split": "^1.0.0",
     "trim": "0.0.1"
   },
