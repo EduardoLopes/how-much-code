@@ -1,72 +1,44 @@
 var assert = require('assert');
-var Parser = require('./parser');
+var NumstatParser = require('./NumstatParser');
 
-describe('Parser', function() {
-  describe('#getFilesChanged', function () {
+describe('NumstatParser', function() {
 
-    it('should return the number of files changed', function () {
+  it('should list 2 files', function(){
 
-      var parser = new Parser('1 file changed, 28 insertions(+), 13 deletions(-)');
-      assert.equal(parser.getFilesChanged(), 1);
+    var commit ='\n7\t0\tCHANGELOG.md\n1\t1\tindex.js\n';
+    var parser = commit.match(/((?:\d+|\-))\t((?:\d+|\-))\t(.+)/g);
+    var data = new NumstatParser(parser);
 
-    });
-
-    it('should return the number of files even when more than one file was changed (plural and singular test)', function () {
-
-      var parser = new Parser('2 files changed, 16 insertions(+), 10 deletions(-)');
-      assert.equal(parser.getFilesChanged(), 2);
-
-    });
+    assert.equal(data.files.length, 2);
 
   });
 
-  describe('#getFilesChanged', function () {
+  it('should list the files: [CHANGELOG.md, index.js, package.json]', function(){
 
-    it('should return the number of insertions', function () {
+    var commit ='\n53\t0\tindex.js\n32\t0\tpackage.json\n55\t0\tparser.js';
 
-      var parser = new Parser('4 file changed, 1 insertion(+), 13 deletions(-)');
-      assert.equal(parser.getInsertions(), 1);
 
-    });
 
-    it('should return the number of insertions even when there\'s more than one insertion (plural and singular test)', function () {
+    var parser = commit.match(/((?:\d+|\-))\t((?:\d+|\-))\t(.+)/g);
+    var data = new NumstatParser(parser);
 
-      var parser = new Parser('2 files changed, 16 insertions(+), 10 deletions(-)');
-      assert.equal(parser.getInsertions(), 16);
-
-    });
-
-    it('should return 0 if there\'s no insertions', function () {
-
-      var parser = new Parser('4 files changed, 16 deletions(-)');
-      assert.equal(parser.getInsertions(), 0);
-
-    });
+    assert.equal(data.files.length, 3);
+    assert.equal(data.files[0].file, 'index.js');
+    assert.equal(data.files[1].file, 'package.json');
+    assert.equal(data.files[2].file, 'parser.js');
 
   });
 
-  describe('#getDeletions', function () {
+  it('package.json should have 32 insertions and 0 deletions', function(){
 
-    it('should return the number of insertions', function () {
+    var commit ='\n53\t0\tindex.js\n32\t0\tpackage.json\n55\t0\tparser.js';
+    var parser = commit.match(/((?:\d+|\-))\t((?:\d+|\-))\t(.+)/g);
+    var data = new NumstatParser(parser);
 
-      var parser = new Parser('1 file changed, 28 insertions(+), 1 deletion(-)');
-      assert.equal(parser.getDeletions(), 1);
 
-    });
-
-    it('should return the number of deletions even when there\'s more than one deletions (plural and singular test)', function () {
-
-      var parser = new Parser('2 files changed, 16 insertions(+), 10 deletions(-)');
-      assert.equal(parser.getDeletions(), 10);
-
-    });
-
-    it('should return 0 if there\'s no deletions', function () {
-
-      var parser = new Parser('8 files changed, 26 insertions(+)');
-      assert.equal(parser.getDeletions(), 0);
-
-    });
+    assert.equal(data.files[1].file, 'package.json');
+    assert.equal(data.files[1].insertions, 32);
+    assert.equal(data.files[1].deletions, 0);
 
   });
 
