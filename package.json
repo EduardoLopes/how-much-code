@@ -4,7 +4,7 @@
   "description": "A module that count how much code have you committed in a git repository in a day",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./test.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +32,9 @@
     "how-much-code": "index.js"
   },
   "devDependencies": {
-    "mocha": "^2.3.3"
+    "coveralls": "^2.11.4",
+    "istanbul": "^0.4.0",
+    "mocha": "^2.3.3",
+    "mocha-lcov-reporter": "^1.0.0"
   }
 }
