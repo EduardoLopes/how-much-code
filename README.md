@@ -2,6 +2,8 @@
 
 > A module that count how much code have you committed in a git repository
 
+[![Build Status](https://travis-ci.org/EduardoLopes/how-much-code.svg)](https://travis-ci.org/EduardoLopes/how-much-code)  
+
 ### Install
 ```
 npm install how-much-code -g
