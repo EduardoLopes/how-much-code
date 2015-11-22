@@ -1,5 +1,59 @@
 var assert = require('assert');
 var NumstatParser = require('./NumstatParser');
+var pify = require('pify');
+var childProcess = require('child_process');
+
+describe('how-much-code', function(){
+
+  //list the first 20 commits
+  var arg = '--before="Thu Nov 12 12:21:46 2015 -0300"';
+  var output = pify(childProcess.execFile)('./index.js', [arg]);
+
+  it('should count 20 Commits', function(){
+
+    return output.then(function(out){
+
+      var match = out.toString().match(/20\sCommits/);
+      assert.notEqual(match, null);
+
+    });
+
+  });
+
+  it('should count 9 files changed', function(){
+
+    return output.then(function(out){
+
+      var match = out.toString().match(/9\sFiles\schanged/);
+      assert.notEqual(match, null);
+
+    });
+
+  });
+
+  it('should count 157 sDeletions', function(){
+
+    return output.then(function(out){
+
+      var match = out.toString().match(/157\sDeletions\(\-\)/);
+      assert.notEqual(match, null);
+
+    });
+
+  });
+
+  it('should count 482 Insertions', function(){
+
+    return output.then(function(out){
+
+      var match = out.toString().match(/482\sInsertions\(\+\)/);
+      assert.notEqual(match, null);
+
+    });
+
+  });
+
+});
 
 describe('NumstatParser', function() {
 
@@ -16,9 +70,6 @@ describe('NumstatParser', function() {
   it('should list the files: [CHANGELOG.md, index.js, package.json]', function(){
 
     var commit ='\n53\t0\tindex.js\n32\t0\tpackage.json\n55\t0\tparser.js';
-
-
-
     var parser = commit.match(/((?:\d+|\-))\t((?:\d+|\-))\t(.+)/g);
     var data = new NumstatParser(parser);
 
@@ -34,7 +85,6 @@ describe('NumstatParser', function() {
     var commit ='\n53\t0\tindex.js\n32\t0\tpackage.json\n55\t0\tparser.js';
     var parser = commit.match(/((?:\d+|\-))\t((?:\d+|\-))\t(.+)/g);
     var data = new NumstatParser(parser);
-
 
     assert.equal(data.files[1].file, 'package.json');
     assert.equal(data.files[1].insertions, 32);
