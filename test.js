@@ -42,4 +42,20 @@ describe('NumstatParser', function() {
 
   });
 
+  it('insertions and deletions should be 0', function(){
+
+    var commit ='\n-\t-\tsun.jpeg\n-\t-\tmoon.png';
+    var parser = commit.match(/((?:\d+|\-))\t((?:\d+|\-))\t(.+)/g);
+    var data = new NumstatParser(parser);
+
+    assert.equal(data.files[0].file, 'sun.jpeg');
+    assert.equal(data.files[0].insertions, 0);
+    assert.equal(data.files[0].deletions, 0);
+
+    assert.equal(data.files[1].file, 'moon.png');
+    assert.equal(data.files[1].insertions, 0);
+    assert.equal(data.files[1].deletions, 0);
+
+  });
+
 });
