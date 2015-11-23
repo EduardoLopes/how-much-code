@@ -4,7 +4,8 @@
   "description": "A module that count how much code have you committed in a git repository in a day",
   "main": "index.js",
   "scripts": {
-    "test": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha -- -R spec ./test.js"
+    "test": "nyc ava tests/*.js && nyc report --reporter=text-lcov",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",
@@ -22,8 +23,10 @@
   "homepage": "https://github.com/EduardoLopes/how-much-code",
   "dependencies": {
     "colors": "^1.1.2",
+    "coveralls": "^2.11.4",
     "is-array": "^1.0.1",
     "is-number": "^2.0.2",
+    "nyc": "^3.2.2",
     "split": "^1.0.0",
     "trim": "0.0.1"
   },
@@ -32,6 +35,7 @@
     "how-much-code": "index.js"
   },
   "devDependencies": {
+    "ava": "^0.5.0",
     "coveralls": "^2.11.4",
     "istanbul": "^0.4.0",
     "mocha": "^2.3.3",
