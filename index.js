@@ -60,10 +60,12 @@ spawn('git', args).stdout
 
   if(line.length <= 1) return;
 
+  //check if there's a numstat log in the commit
   var parser = line.toString().match(/((?:\d+|\-))\t((?:\d+|\-))\t(.+)/g);
 
   if(isArray(parser)){
-    var data = new NumstatParser(parser);;
+
+    var data = new NumstatParser(line.toString());
 
     for (var i = 0; i < data.files.length; i++) {
 

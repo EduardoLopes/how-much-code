@@ -23,12 +23,12 @@ function NumstatParserLine(data){
 
 function NumstatParser(data){
 
+  var parser = data.match(/((?:\d+|\-))\t((?:\d+|\-))\t(.+)/g);
   this.raw = data;
-
   this.files = [];
 
-  for (var i = 0; i < this.raw.length; i++) {
-    this.files[i] = new NumstatParserLine(this.raw[i]);
+  for (var i = 0; i < parser.length; i++) {
+    this.files[i] = new NumstatParserLine(parser[i]);
   };
 
 }
