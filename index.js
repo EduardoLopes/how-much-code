@@ -76,6 +76,24 @@ argsToInject = argsToInject.filter(function(value){
 
   }
 
+  if(value == '--month'){
+
+    var now = new Date();
+    now.setDate(now.getDate() - 1);
+    now.setHours(0, 0, 0, 0);
+
+    var now = new Date();
+    var firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+    firstDay.setHours(0, 0, 0, 0);
+    var lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    lastDay.setHours(23, 59, 59, 999);
+
+    args = args.concat(['--after', firstDay.toString(), '--before', lastDay.toString()]);
+
+    return false;
+
+  }
+
   return true;
 
 });
