@@ -31,12 +31,27 @@ argsToInject = argsToInject.filter(function(value){
     return false;
   }
 
+  if(value == '--yesterday'){
+
+    var after = new Date();
+    after.setDate(after.getDate() - 1);
+    after.setHours(0, 0, 0, 0);
+
+    var before = new Date();
+    before.setDate(before.getDate() - 1);
+    before.setHours(23, 59, 59, 999);
+
+    args = args.concat(['--after', after.toString(), '--before', before.toString()]);
+
+    return false;
+
+  }
+
   return true;
 
 });
 
 args = args.concat(argsToInject);
-
 
 function log(msg){
 
