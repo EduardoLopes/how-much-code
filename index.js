@@ -59,6 +59,23 @@ argsToInject = argsToInject.filter(function(value){
 
   }
 
+  if(value == '--week'){
+
+    var now = new Date();
+    now.setDate(now.getDate() - 1);
+    now.setHours(0, 0, 0, 0);
+
+    var weekFirstDay = new Date( now.setDate( now.getDate() - now.getDay() ) );
+    weekFirstDay.setHours(0, 0, 0, 0);
+    var weekLastDay = new Date( now.setDate( now.getDate() - now.getDay() + 6) );
+    weekLastDay.setHours(23, 59, 59, 999);
+
+    args = args.concat(['--after', weekFirstDay.toString(), '--before', weekLastDay.toString()]);
+
+    return false;
+
+  }
+
   return true;
 
 });
