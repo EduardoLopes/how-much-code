@@ -47,6 +47,18 @@ argsToInject = argsToInject.filter(function(value){
 
   }
 
+  if(value == '--today'){
+
+    var today = new Date();
+    today.setDate(today.getDate() - 1);
+    today.setHours(0, 0, 0, 0);
+
+    args = args.concat(['--after', today.toString()]);
+
+    return false;
+
+  }
+
   return true;
 
 });
