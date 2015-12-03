@@ -32,6 +32,7 @@ Shortcut options:
   --today       shows the info about the commits of the day
   --yesderday   shows the info about the commits of yesterday
   --week        shows the info about the commits of the current week
+  --month       shows the info about the commits of the current month
 ```
 
 ### Tips
