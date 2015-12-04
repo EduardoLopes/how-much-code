@@ -31,12 +31,73 @@ argsToInject = argsToInject.filter(function(value){
     return false;
   }
 
+  if(value == '--yesterday'){
+
+    var after = new Date();
+    after.setDate(after.getDate() - 1);
+    after.setHours(0, 0, 0, 0);
+
+    var before = new Date();
+    before.setDate(before.getDate() - 1);
+    before.setHours(23, 59, 59, 999);
+
+    args = args.concat(['--after', after.toString(), '--before', before.toString()]);
+
+    return false;
+
+  }
+
+  if(value == '--today'){
+
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    args = args.concat(['--since', today.toString()]);
+
+    return false;
+
+  }
+
+  if(value == '--week'){
+
+    var now = new Date();
+    now.setDate(now.getDate() - 1);
+    now.setHours(0, 0, 0, 0);
+
+    var weekFirstDay = new Date( now.setDate( now.getDate() - now.getDay() ) );
+    weekFirstDay.setHours(0, 0, 0, 0);
+    var weekLastDay = new Date( now.setDate( now.getDate() - now.getDay() + 6) );
+    weekLastDay.setHours(23, 59, 59, 999);
+
+    args = args.concat(['--after', weekFirstDay.toString(), '--before', weekLastDay.toString()]);
+
+    return false;
+
+  }
+
+  if(value == '--month'){
+
+    var now = new Date();
+    now.setDate(now.getDate() - 1);
+    now.setHours(0, 0, 0, 0);
+
+    var now = new Date();
+    var firstDay = new Date(now.getFullYear(), now.getMonth(), 1);
+    firstDay.setHours(0, 0, 0, 0);
+    var lastDay = new Date(now.getFullYear(), now.getMonth() + 1, 0);
+    lastDay.setHours(23, 59, 59, 999);
+
+    args = args.concat(['--after', firstDay.toString(), '--before', lastDay.toString()]);
+
+    return false;
+
+  }
+
   return true;
 
 });
 
 args = args.concat(argsToInject);
-
 
 function log(msg){
 

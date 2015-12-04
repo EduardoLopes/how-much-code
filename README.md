@@ -10,17 +10,30 @@ npm install how-much-code -g
 ```
 
 ### Usage
+```
+#Get info of all the commits in the repository:
+$ how-much-code       
 
-Get info from all the commits in the repository:
-`how-much-code`  
-Since midnight: `how-much-code --since=midnight`  
-Since 6am: `how-much-code --since=6am`  
-...and so on: 
-`how-much-code --since=6am --author="Eduardo Lopes"`
+#Since midnight 
+$ how-much-code --since=midnight
 
+#Since 6am
+$ how-much-code --since=6am
+
+#...and so on 
+$ how-much-code --since=6am --author="Eduardo Lopes"
+```
 
 ### Options
 You can basiclly use any [git log](http://git-scm.com/docs/git-log) option, but try to use only the limiting options or the parser can get crazy.
+
+Shortcut options:
+```
+  --today       shows the info about the commits of the day
+  --yesderday   shows the info about the commits of yesterday
+  --week        shows the info about the commits of the current week
+  --month       shows the info about the commits of the current month
+```
 
 ### Tips
 Set alias in you command line tool, so you don't need to type too much to get what you want:
